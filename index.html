@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <title>Google Maps Multiple Markers</title>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBr7awO7eoFpNG9JY7O-1PQ-jUPsmTR7mw"></script>
+  <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+  </script>
+  <style>
+    .map {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 12%;
+      left: 0.8%;
+      z-index: 10;
+      background-color: #fff;
+      width: 155px;
+      height: auto;
+      padding: 20px 12px;
+      opacity: 0.95;
+      border-radius: 5px;
+      box-shadow: 5px 5px 7px 0px #c7c7c7;
+    }
+
+    .overlay__label {
+      color: black;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .overlay__items {
+      padding: 6px;
+    }
+
+    input[type=checkbox] {
+      display: none;
+    }
+
+    input[type=checkbox]+label:before {
+      content: "\2714";
+      border: 0.1em solid grey;
+      border-radius: 0.2em;
+      display: inline-block;
+      width: 0.8em;
+      height: 0.8em;
+      padding-left: 0.2em;
+      padding-bottom: 0.3em;
+      margin-right: 0.4em;
+      vertical-align: bottom;
+      color: transparent;
+      transition: .2s;
+    }
+
+    input[type=checkbox]+label:active:before {
+      transform: scale(0);
+    }
+
+    input[type=checkbox]:checked+label:before {
+      background-color: MediumSeaGreen;
+      border-color: MediumSeaGreen;
+      color: #fff;
+    }
+
+    /* input[type=checkbox]:disabled+label:before {
+      transform: scale(1);
+      border-color: #aaa;
+    }
+
+    input[type=checkbox]:checked:disabled+label:before {
+      transform: scale(1);
+      background-color: rgb(155, 226, 155);
+      border-color: rgb(155, 226, 155);
+    } */
+  </style>
+</head>
+
+<body>
+  <div class="map">
+    <div id="map" style="width: 100%; height: 100%;"></div>
+    <div class="overlay">
+      <div class="overlay__items">
+        <input type="checkbox" id="homes">
+        <label for="homes" class="overlay__label">Homes</label>
+      </div>
+      <div class="overlay__items">
+        <input type="checkbox" id="sanitation_plants">
+        <label for="sanitation_plants" class="overlay__label">Sanitation Plants</label>
+      </div>
+      <div class="overlay__items">
+        <input type="checkbox" id="trucks">
+        <label for="trucks" class="overlay__label">Trucks</label>
+      </div>
+      <div class="overlay__items">
+        <input type="checkbox" id="route" name="map-check">
+        <label for="route" class="overlay__label">Route</label>
+      </div>
+      <!-- <div class="overlay__items">
+        <input type="radio" id="route2" name="map-radio" value="17.954241, 79.569596">
+        <label for="route2" class="overlay__label">Route to Home2</label>
+      </div>
+      <div class="overlay__items">
+        <input type="radio" id="route3" name="map-radio" value="17.943149, 79.574752">
+        <label for="route3" class="overlay__label">Route to Home3</label>
+      </div>
+      <div class="overlay__items">
+        <input type="radio" id="route4" name="map-radio" value="17.926996, 79.547971">
+        <label for="route4" class="overlay__label">Route to Home4</label>
+      </div>
+      <div class="overlay__items">
+        <input type="radio" id="route5" name="map-radio" value="17.916747, 79.574121">
+        <label for="route5" class="overlay__label">Route to Home5</label>
+      </div> -->
+    </div>
+  </div>
+  <script src="main.js" type="text/javascript"></script>
+</body>
+
+</html>

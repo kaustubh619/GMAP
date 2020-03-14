@@ -8,7 +8,9 @@ var homes = [
   ["Home5", 17.943149, 79.574752],
   ["Home6", 17.963149, 79.594752],
   ["Home7", 17.913149, 79.594752],
-  ["Home9", 17.929996, 79.537971]
+  ["Home8", 17.919996, 79.537971],
+  ["Home9", 17.929996, 79.537971],
+  ["Home10", 17.959996, 79.537971]
 ];
 
 var trucks = [
@@ -54,13 +56,20 @@ var truck_icon = {
   anchor: new google.maps.Point(0, 0) // anchor
 };
 
+var icon_route = {
+  url: "br.png",
+  scaledSize: new google.maps.Size(30, 30), // scaled size
+  origin: new google.maps.Point(0, 0), // origin
+  anchor: new google.maps.Point(0, 0) // anchor
+};
+
 var infowindow = new google.maps.InfoWindow();
 
 for (i = 0; i < homes.length; i++) {
   marker = new google.maps.Marker({
     position: new google.maps.LatLng(homes[i][1], homes[i][2]),
     map: map,
-    icon: icon
+    icon: icon_route
   });
 
   markers.push(marker);
@@ -179,7 +188,14 @@ $('input[name="map-check"]').click(function() {
   if ($("#route").is(":checked")) {
     for (i = 0; i < 3; i++) {
       const directionsRenderer = new google.maps.DirectionsRenderer({
-        preserveViewport: true
+        preserveViewport: true,
+        strokeColor: "#e7e7e7",
+        suppressMarkers: true,
+        polylineOptions: {
+          strokeColor: "#3CB371",
+          strokeWeight: 6,
+          strokeOpacity: 0.5
+        }
       });
       directionsRenderer.setMap(map);
       directionsService.route(
@@ -198,6 +214,27 @@ $('input[name="map-check"]').click(function() {
       );
       calculateAndDisplayRoute(directionsService, directionsRenderer);
       this.directionsRenderer = "";
+    }
+
+    for (i = 0; i < 3; i++) {
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(homes[i][1], homes[i][2]),
+        map: map,
+        icon: icon
+      });
+
+      markers.push(marker);
+
+      google.maps.event.addListener(
+        marker,
+        "click",
+        (function(marker, i) {
+          return function() {
+            infowindow.setContent(homes[i][0]);
+            infowindow.open(map, marker);
+          };
+        })(marker, i)
+      );
     }
   } else {
     location.reload();

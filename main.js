@@ -1,9 +1,9 @@
 function calculateAndDisplayRoute() {}
 
 var homes = [
-  ["Home1", 17.954241, 79.569596],
-  ["Home2", 17.916747, 79.574121],
-  ["Home3", 17.944383, 79.545297],
+  ["Home1", 17.953643, 79.569233],
+  ["Home2", 17.916386, 79.572154],
+  ["Home3", 17.942388, 79.543628],
   ["Home4", 17.926996, 79.547971],
   ["Home5", 17.943149, 79.574752],
   ["Home6", 17.963149, 79.594752],
@@ -20,7 +20,7 @@ var trucks = [
 ];
 
 var centerS = [
-  ["Sanitation Resource Park 1", 17.937611, 79.558855],
+  ["Sanitation Resource Park 1", 17.936746, 79.558506],
   ["Sanitation Resource Park 2", 17.937611, 79.528855]
 ];
 
@@ -39,28 +39,28 @@ var icon = {
   url: "build.png",
   scaledSize: new google.maps.Size(30, 30), // scaled size
   origin: new google.maps.Point(0, 0), // origin
-  anchor: new google.maps.Point(0, 0) // anchor
+  anchor: new google.maps.Point(15, 30) // anchor
 };
 
 var sanitation_icon = {
   url: "parks2.png",
   scaledSize: new google.maps.Size(50, 50), // scaled size
   origin: new google.maps.Point(0, 0), // origin
-  anchor: new google.maps.Point(0, 0) // anchor
+  anchor: new google.maps.Point(25, 50) // anchor
 };
 
 var truck_icon = {
   url: "firetruck_logo1.jpg",
   scaledSize: new google.maps.Size(50, 50), // scaled size
   origin: new google.maps.Point(0, 0), // origin
-  anchor: new google.maps.Point(0, 0) // anchor
+  anchor: new google.maps.Point(25, 50) // anchor
 };
 
 var icon_route = {
   url: "br.png",
   scaledSize: new google.maps.Size(30, 30), // scaled size
   origin: new google.maps.Point(0, 0), // origin
-  anchor: new google.maps.Point(0, 0) // anchor
+  anchor: new google.maps.Point(15, 30) // anchor
 };
 
 var infowindow = new google.maps.InfoWindow();
@@ -182,22 +182,22 @@ $("#sanitation_plants").click(function() {
   }
 });
 
-const directionsService = new google.maps.DirectionsService();
 $('input[name="map-check"]').click(function() {
-  // $("#route").attr("disabled", "true");
   if ($("#route").is(":checked")) {
     for (i = 0; i < 3; i++) {
+      const directionsService = new google.maps.DirectionsService();
       const directionsRenderer = new google.maps.DirectionsRenderer({
         preserveViewport: true,
         strokeColor: "#e7e7e7",
         suppressMarkers: true,
         polylineOptions: {
           strokeColor: "#3CB371",
-          strokeWeight: 6,
-          strokeOpacity: 0.5
+          strokeWeight: 4,
+          strokeOpacity: 0.7
         }
       });
       directionsRenderer.setMap(map);
+
       directionsService.route(
         {
           origin: { query: "17.937611, 79.558855" },
@@ -209,18 +209,19 @@ $('input[name="map-check"]').click(function() {
             directionsRenderer.setDirections(response);
           } else {
             console.log("Directions request failed due to " + status);
+            location.reload();
           }
         }
       );
       calculateAndDisplayRoute(directionsService, directionsRenderer);
-      this.directionsRenderer = "";
     }
 
     for (i = 0; i < 3; i++) {
       marker = new google.maps.Marker({
         position: new google.maps.LatLng(homes[i][1], homes[i][2]),
         map: map,
-        icon: icon
+        icon: icon,
+        zIndex: 10000000
       });
 
       markers.push(marker);
